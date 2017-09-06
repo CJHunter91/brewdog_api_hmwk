@@ -11,14 +11,32 @@ var listBeers = function(beers){
   })
 }
 
-var addMalts = function(beer, div){
-  var string = "Contains these lovely malts:"
-  var malts = document.createElement('p');
-  beer.ingredients.malt.forEach(function(malt){
-    string += " " + malt.name + ","
+var addIngredients = function(beer, div, ingredient){
+  var ingredientElement = document.createElement('p');
+  if(ingredient === 'yeast'){
+    ingredientElement.innerText = "Yeast used: " + beer.ingredients[ingredient];
+    div.appendChild(ingredientElement);
+    return;
+  }
+
+  var stringMalt = "Contains these lovely malts:"
+  var stringHop = "Contains these delicious hops:"
+  var string = '';
+
+  var ingredients = beer.ingredients[ingredient]
+  ingredients.forEach(function(iterateIngredient){
+    string += " " + iterateIngredient.name + ",";
   })
-  malts.innerText = string;
-  div.appendChild(malts);
+
+  switch (ingredient){
+    case "malt": 
+      ingredientElement.innerText = stringMalt + string ;
+      break;
+    case "hops":
+      ingredientElement.innerText = stringHop + string;
+      break;
+  }
+  div.appendChild(ingredientElement);
 }
 
 var createBeer = function(beer, section){
@@ -31,8 +49,9 @@ var createBeer = function(beer, section){
 
   heading.innerText = beer.name;
   div.appendChild(heading);
-  addMalts(beer, div);
-  
+  addIngredients(beer, div, "malt");
+  addIngredients(beer, div, "hops");
+  addIngredients(beer, div, "yeast");
   img.src = beer.image_url;
   beerSection.className = 'beer-item';
 
