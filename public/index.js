@@ -12,11 +12,19 @@ var listBeers = function(beers){
 }
 
 var createBeer = function(beer, section){
+  var beerSection = document.createElement('section');
   var div = document.createElement('div')
+  imgDiv = document.createElement('div');
   var heading = document.createElement('h3');
+  var img = document.createElement('img');
   heading.innerText = beer.name;
+  img.src = beer.image_url;
+  beerSection.className = 'beer-item';
   div.appendChild(heading);
-  section.appendChild(div);
+  imgDiv.appendChild(img);
+  beerSection.appendChild(imgDiv);
+  beerSection.appendChild(div);
+  section.appendChild(beerSection);
 }
 
 var requestComplete = function(){
