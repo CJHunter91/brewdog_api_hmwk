@@ -11,16 +11,31 @@ var listBeers = function(beers){
   })
 }
 
+var addMalts = function(beer, div){
+  var string = "Contains these lovely malts:"
+  var malts = document.createElement('p');
+  beer.ingredients.malt.forEach(function(malt){
+    string += " " + malt.name + ","
+  })
+  malts.innerText = string;
+  div.appendChild(malts);
+}
+
 var createBeer = function(beer, section){
+
   var beerSection = document.createElement('section');
   var div = document.createElement('div')
-  imgDiv = document.createElement('div');
+  var imgDiv = document.createElement('div');
   var heading = document.createElement('h3');
   var img = document.createElement('img');
+
   heading.innerText = beer.name;
+  div.appendChild(heading);
+  addMalts(beer, div);
+  
   img.src = beer.image_url;
   beerSection.className = 'beer-item';
-  div.appendChild(heading);
+
   imgDiv.appendChild(img);
   beerSection.appendChild(imgDiv);
   beerSection.appendChild(div);
