@@ -6,14 +6,17 @@ var app = function(){
 
 var listBeers = function(beers){
   var section = document.querySelector('#beer-list');
-
   beers.forEach(function(beer){
-    var div = document.createElement('div')
-    var heading = document.createElement('h3');
-    heading.innerText = beer.name;
-    div.appendChild(heading);
-    section.appendChild(div);
+    createBeer(beer, section);
   })
+}
+
+var createBeer = function(beer, section){
+  var div = document.createElement('div')
+  var heading = document.createElement('h3');
+  heading.innerText = beer.name;
+  div.appendChild(heading);
+  section.appendChild(div);
 }
 
 var requestComplete = function(){
