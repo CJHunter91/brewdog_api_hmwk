@@ -1,16 +1,19 @@
 var app = function(){
-  var beers = localStorage.getItem('a')
   makeRequest(requestComplete);
-  listBeers();
+  var beers = localStorage.getItem('all_beers') ? JSON.parse(localStorage.getItem('all_beers')) : [];
 
 }
 
-var getBeers = function(){
+var listBeers = function(beers){
+  var section = document.querySelector('#beer-list');
 
-}
-
-var listBeers = function(){
-  var beers = getBeers();
+  beers.forEach(function(beer){
+    var div = document.createElement('div')
+    var heading = document.createElement('h3');
+    heading.innerText = beer.name;
+    div.appendChild(heading);
+    section.appendChild(div);
+  })
 }
 
 var requestComplete = function(){
@@ -19,6 +22,7 @@ var requestComplete = function(){
   var jsonString = this.responseText;
   localStorage.setItem('all_beers', jsonString);
   var beers = JSON.parse(jsonString);
+  listBeers(beers);
 }
 
 var makeRequest = function(callback){
